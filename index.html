@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Voting Admin Dashboard</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,400;0,700;1,700&display=swap"
+        rel="stylesheet">
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Ganti Chart.js ke CDN untuk memastikan dimuat -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Feather Iconts -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script>
+        // ====================
+        // KONFIGURASI SUPABASE
+        // ====================
+        const SUPABASE_URL = 'https://xxwwbydzorlxulbcrldo.supabase.co'; // Placeholder: Ganti dengan URL Supabase Anda
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh4d3dieWR6b3JseHVsYmNybGRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjExMDAxMDYsImV4cCI6MjA3NjY3NjEwNn0.La5nOg80azsQp_ZuqXuj0CI552hQBwdwWgxEqfaDlDk'; // Placeholder: Ganti dengan Anon Key Supabase Anda
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    </script>
+    <style>
+        /* Fade-in animation untuk halaman */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        /* Spinner loading */
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
+        }
+
+        .spinner.hidden {
+            display: none;
+        }
+
+        /* Button disabled state */
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Custom scrollbar untuk dark mode */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ffffff;
+        }
+
+        /* Dark mode scrollbar */
+        .dark ::-webkit-scrollbar-track {
+            background: #000000;
+        }
+
+        .dark ::-webkit-scrollbar-thumb {
+            background: #ffffff;
+        }
+
+        .dark ::-webkit-scrollbar-thumb:hover {
+            background: #ffffff;
+        }
+
+        /* Shadow halus untuk elemen UI */
+        .shadow-soft {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        /* Rounded corners konsisten */
+        .rounded-soft {
+            border-radius: 0.75rem;
+        }
+
+        .borrder {
+            border: #ffffff 1px solid;
+        }
+
+        .borrder-tombol:hover {
+            border: transparent 1px solid;
+        }
+
+        .borrder-tombol {
+            border: #ffffff 1px solid;
+        }
+
+        .panjang {
+            width: 60px;
+            height: 60px;
+        }
+    </style>
+</head>
+
+<body class="h-full bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+    <!-- Dark Mode Toggle -->
+    <!-- <button id="darkModeToggle"
+        class="fixed top-4 right-4 z-50 p-2 bg-gray-200 dark:bg-gray-700 rounded-full shadow-lg transition-all duration-300">
+        🌙
+    </button> -->
+
+    <!-- Login Page -->
+    <div id="loginPage"
+        class="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#255267] to-[#1C3D4D]">
+        <div class="bg-[#F2F8F6]  rounded-xl shadow-lg p-8 w-full max-w-md">
+            <h1 class="text-2xl font-bold text-center mb-6 text-[#255267]">Admin Login</h1>
+            <form id="adminForm">
+                <div class="mb-6">
+                    <label class="block text-sm font-medium mb-2 text-[#255267]">Password</label>
+                    <input aria-label="password" type="password" id="adminPassword" required
+                        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#E7ECF5] text-[#255267]">
+                </div>
+                <button type="submit" id="adminLoginBtn"
+                    class="w-full bg-[#255267] text-white py-2 rounded-lg hover:bg-[#C9E1EB] transition-all duration-300">
+                    <span class="spinner hidden"></span>Login
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dashboard Container -->
+    <div id="dashboardContainer" class="hidden min-h-screen flex">
+        <!-- Sidebar -->
+        <aside class="w-48 bg-[#255267] text-white p-6 shadow-lg">
+            <div class="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden">
+                <img src="assets/lp3i.png" class="borrder w-full h-full rounded-full mx-auto mb-4 object-cover"
+                    alt="Admin">
+            </div>
+            <h2 class="text-xl font-bold mb-8 text-center">Admin <br> Dashboard</h2>
+            <nav class="space-y-4">
+                <button id="navDashboard"
+                    class="nav-btn w-full text-left py-2 px-4 rounded-lg bg-[#1C3D4D] hover:bg-[#1C3D4D] transition-all duration-300">Dashboard</button>
+                <button id="navKandidat"
+                    class="nav-btn w-full text-left py-2 px-4 rounded-lg hover:bg-[#1C3D4D] transition-all duration-300">Data
+                    Kandidat</button>
+                <button id="navMahasiswa"
+                    class="nav-btn w-full text-left py-2 px-4 rounded-lg hover:bg-[#1C3D4D] transition-all duration-300">Data
+                    Pemilih</button>
+                <button id="navVoting"
+                    class="nav-btn w-full text-left py-2 px-4 rounded-lg hover:bg-[#1C3D4D] transition-all duration-300">Data
+                    Voting</button>
+            </nav>
+            <button id="logoutBtn"
+                class="w-full mt-8 bg-red-500 hover:bg-red-600 py-2 rounded-lg transition-all duration-300">Logout</button>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-4 bg-[#F2F8F6] ">
+            <!-- Dashboard Page -->
+            <div id="dashboardPage" class="page">
+                <div class="flex justify-between items-center bg-gray-900 rounded-xl gap-4 p-4 mb-4">
+                    <div class="flex w-full max-h-md items-center">
+                        <div
+                            class="borrder-tombol text-white text-center sm:text-left transition-all duration-300 hover:bg-[#255267] hover:text-white active:bg-[#255267] p-2 rounded-xl shadow-lg">
+                            <a href="#" class="" id="hamburger-menu" title="menu"><i data-feather="menu"></i></a>
+                        </div>
+                        <h1 class="ml-4 text-3xl font-bold text-white">Dashboard</h1>
+                    </div>
+                    <div >
+                        <button id="refreshDashboard"
+                            class="borrder-tombol text-white py-2 px-4 rounded-lg hover:bg-[#255267] transition-all duration-300">
+                            <span class="spinner hidden"></span>Refresh
+                        </button>
+                    </div>
+                </div>
+                <div class="w-auto gap-6 mb-6 bg-gray-900 rounded-xl p-4">
+                    <h1 class="text-2xl font-bold mb-2">Data Pemilihan KPU 2025</h1>
+                    <div class="items-center w-auto flex gap-6 mb-2">
+                        <div
+                            class="borrder w-full h-full bg-white dark:bg-gray-700 rounded-xl shadow py-4 flex items-center">
+                            <!-- Tambahkan flex items-center -->
+                            <div
+                                class="bg-blue-700 teks-white rounded-xl overflow-hidden flex items-center justify-center ml-4 mr-4">
+                                <!-- Hapus mx-auto, tambahkan ml-2 mr-4 -->
+                                <i class="p-2 w-10 h-10" data-feather="layers"></i>
+                            </div>
+                            <div class="ml-4 text-center"> <!-- Bungkus teks di sini -->
+                                <h1 class="text-4xl font-bold"><span id="totalVoters">0</span></h1>
+                                <h1 class="text-base font-bold">Total Data Pemilih</h1>
+                            </div>
+                        </div>
+                        <div class="borrder w-full h-full dark:bg-gray-700 rounded-xl shadow py-4 flex items-center">
+                            <!-- Tambahkan flex items-center -->
+                            <div
+                                class="bg-blue-700 rounded-xl overflow-hidden flex items-center justify-center ml-4 mr-4">
+                                <!-- Hapus mx-auto, tambahkan ml-4 mr-4 -->
+                                <i class="p-2 w-10 h-10" data-feather="activity"></i>
+                            </div>
+                            <div class="ml-4 text-center"> <!-- Bungkus teks di sini -->
+                                <h2 class="text-4xl font-bold"><span id="totalVotes">0</span></h2>
+                                <h1 class="text-base font-bold">Total Sudah Voting</h1>
+                            </div>
+                        </div>
+                        <div
+                            class="borrder w-full h-full bg-white dark:bg-gray-700 rounded-xl shadow py-4 flex items-center">
+                            <!-- Tambahkan flex items-center -->
+                            <div
+                                class="bg-blue-700 rounded-xl overflow-hidden flex items-center justify-center ml-4 mr-4">
+                                <!-- Hapus mx-auto, tambahkan mr-4 -->
+                                <i class="p-2 w-10 h-10" data-feather="slash"></i>
+                            </div>
+                            <div class="ml-4 text-center"> <!-- Bungkus teks di sini -->
+                                <h1 class="text-4xl font-bold"><span id="totalBelumVoting">0</span></h1>
+                                <h1 class="text-base font-bold">Total Belum Voting</h1>
+                            </div>
+                        </div>
+                        <div class="borrder w-full bg-white dark:bg-gray-700 rounded-xl shadow  items-center">
+                            <!-- Tambahkan flex items-center -->
+                            <div
+                                class=" px-2 py-5 rounded-xl overflow-hidden items ml-4 mr-4 items-center justify-center">
+                                <!-- Hapus mx-auto, tambahkan mr-4 -->
+                                <button id="exportVoting"
+                                    class="borrder-tombol mb-3 w-full text-white py-2 px-2 rounded-lg hover:bg-[#255267] hover:borrder-tombol transition-all duration-300">
+                                    <span class="spinner hidden"></span>Export Hasil Vote
+                                </button>
+                                <button id="exportPemilih"
+                                    class="borrder-tombol w-full text-white py-2 px-2 rounded-lg hover:bg-[#255267] transition-all duration-300">
+                                    <span class="spinner hidden"></span>Export Data Pemilih
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-white dark:bg-gray-700 rounded-xl shadow p-6 flex flex-col">
+                        <!-- Tambahkan flex flex-col untuk layout vertikal -->
+                        <h2 class="text-xl font-semibold mb-4">Grafik Hasil Voting</h2>
+                        <div class="flex-1"> <!-- Wrapper untuk canvas agar mengisi sisa tinggi -->
+                            <canvas id="votingChart" class="w-full h-full"></canvas> <!-- Tambahkan w-full h-full -->
+                        </div>
+                    </div>
+                    <div class="bg-white dark:bg-gray-700 rounded-xl shadow p-6">
+                        <h2 class="text-xl font-semibold mb-4">Angkatan Yang Voting</h2>
+                        <div class="space-y-6">
+                            <div id="resultsContainerAngkatan">
+                                <!-- Akan diisi dinamis -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-gray-700 rounded-2xl card-shadow p-8 animate-fade-in mb-6">
+                    <div class="mb-8">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-2xl font-bold text-white">Perolehan Suara</h2>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div id="resultsContainer">
+                            <!-- Akan diisi dinamis -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Kandidat Page -->
+            <div id="kandidatPage" class="page hidden">
+                <h1 class="text-3xl font-bold mb-6 text-[#255267]">Data Kandidat</h1>
+                <form id="kandidatForm" class="bg-white dark:bg-gray-700 rounded-xl shadow p-6 mb-6">
+                    <input type="text" id="kandidatId" placeholder="ID Kandidat (Opsional)"
+                        class="hidden px-4 py-2 border rounded-lg dark:bg-gray-600">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                        <input type="text" id="kandidatNo" placeholder="Nomber Kandidat" required
+                            class="px-4 py-2 border rounded-lg dark:bg-gray-600">
+                        <input type="text" id="kandidatNama" placeholder="Nama" required
+                            class="px-4 py-2 border rounded-lg dark:bg-gray-600">
+                        <input aria-label="file" type="file" id="kandidatFoto" accept="image/*"
+                            class="px-4 py-2 border rounded-lg dark:bg-gray-600">
+                    </div>
+                    <textarea id="kandidatVisi" placeholder="Visi" required
+                        class="w-full px-4 py-2 border rounded-lg mb-4 dark:bg-gray-600"></textarea>
+                    <textarea id="kandidatMisi" placeholder="Misi" required
+                        class="w-full px-4 py-2 border rounded-lg mb-4 dark:bg-gray-600"></textarea>
+                    <button type="submit" id="kandidatSubmit"
+                        class="bg-[#255267] text-white py-2 px-4 rounded-lg hover:bg-[#1C3D4D] transition-all duration-300">
+                        <span class="spinner hidden"></span>Simpan
+                    </button>
+                </form>
+                <div id="kandidatList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+                <button id="refreshkandidat"
+                    class="mt-4 bg-[#255267] text-white py-2 px-4 rounded-lg hover:bg-[#1C3D4D] transition-all duration-300">
+                    <span class="spinner hidden"></span>Refresh
+                </button>
+            </div>
+
+            <!-- Data Mahasiswa Page -->
+            <div id="mahasiswaPage" class="page hidden">
+                <div class="flex items-center justify-between">
+                    <h1 class="text-3xl font-bold mb-6 text-[#255267]">Data Pemilih</h1>
+                    <div class="pointer-events-auto absolute p-3 flex items-center">
+                        <svg class="absolute h-10 w-10 text-gray-400">
+                        </svg>
+                    </div>
+                    <input type="text" placeholder="Search" class="p-2 border rounded-lg dark:bg-gray-600">
+                </div>
+                <form id="mahasiswaForm" class="bg-white dark:bg-gray-700 rounded-xl shadow p-6 mb-6">
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-4">
+                        <input type="text" id="mahasiswaId" placeholder="ID Number" required
+                            class="px-4 py-2 border rounded-lg dark:bg-gray-600">
+                        <input type="text" id="mahasiswaNama" placeholder="Nama" required
+                            class="px-4 py-2 border rounded-lg dark:bg-gray-600">
+                        <input type="text" id="mahasiswaNIM" placeholder="NIM" required
+                            class="px-4 py-2 border rounded-lg dark:bg-gray-600">
+                        <input type="text" id="mahasiswaPassword" placeholder="Password" required
+                            class="px-4 py-2 border rounded-lg dark:bg-gray-600">
+                        <select title="mahasiswa" id="mahasiswaKelas"
+                            class="px-4 py-2 border rounded-lg dark:bg-gray-600">
+                            <option value="REG">REG</option>
+                            <option value="NONREG">NONREG</option>
+                        </select>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                        <select title="mahasiswa" id="mahasiswaProdi"
+                            class="px-4 py-2 border rounded-lg dark:bg-gray-600">
+                            <option value="Administrasi Bisnis">Administrasi Bisnis</option>
+                            <option value="Akuntansi">Akuntansi</option>
+                            <option value="Hubungan Masyarakat">Hubungan Masyarakat</option>
+                            <option value="Manajemen Informatika">Manajemen Informatika</option>
+                            <option value="Bisnis Digital">Bisnis Digital</option>
+                        </select>
+                        <select title="mahasiswa" id="mahasiswaStatusVote"
+                            class="px-4 py-2 border rounded-lg dark:bg-gray-600">
+                            <option value="belum">Belum Memilih</option>
+                            <option value="sudah">Sudah Memilih</option>
+                        </select>
+                        <select title="mahasiswa" id="mahasiswaAngkatan"
+                            class="px-4 py-2 border rounded-lg dark:bg-gray-600">
+                            <option value="2025">2025</option>
+                            <option value="2024">2024</option>
+                            <option value="2023">2023</option>
+                        </select>
+                    </div>
+                    <button type="submit" id="mahasiswaSubmit"
+                        class="bg-[#255267] text-white py-2 px-4 rounded-lg hover:bg-[#1C3D4D] transition-all duration-300">
+                        <span class="spinner hidden"></span>Simpan
+                    </button>
+                </form>
+                <table class="w-full bg-white dark:bg-gray-700 rounded-xl shadow">
+                    <thead>
+                        <tr class="border-b">
+                            <th class="p-4">id</th>
+                            <th class="p-4">Nama</th>
+                            <th class="p-4">NIM</th>
+                            <th class="p-4">Password</th>
+                            <th class="p-4">Prodi</th>
+                            <th class="p-4">Kelas</th>
+                            <th class="p-4">Status Vote</th>
+                            <th class="p-4">Angkatan</th>
+                            <th class="p-4">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="mahasiswaList"></tbody>
+                </table>
+                <button id="refreshmahasiswa"
+                    class="mt-4 bg-[#255267] text-white py-2 px-4 rounded-lg hover:bg-[#1C3D4D] transition-all duration-300">
+                    <span class="spinner hidden"></span>Refresh
+                </button>
+            </div>
+
+            <!-- Data Voting Page -->
+            <div id="votingPage" class="page hidden">
+                <h1 class="text-3xl font-bold mb-6 text-[#255267]">Data Voting</h1>
+                <button id="refreshVoting"
+                    class="mb-2 ml-4 bg-[#255267] text-white py-2 px-4 rounded-lg hover:bg-[#1C3D4D] transition-all duration-300">
+                    <span class="spinner hidden"></span>Refresh
+                </button>
+                <table class="w-full bg-white dark:bg-gray-700 rounded-xl shadow">
+                    <thead>
+                        <tr class="border-b">
+                            <th class="p-4">Nama</th>
+                            <th class="p-4">NIM</th>
+                            <th class="p-4">Calon</th>
+                            <th class="p-4">Waktu Vote</th>
+                            <th class="p-4">Angkatan</th>
+                            <th class="p-4">Prodi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="votingList"></tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+    <!-- Feather Iconts -->
+    <script>
+        feather.replace();
+    </script>
+</body>
+
+</html>
