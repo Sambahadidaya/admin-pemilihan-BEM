@@ -101,6 +101,7 @@
         .edit-bg {
             background-color: #F2F8F6;
             border: 1px solid transparent;
+
             color: #1C3D4D;
             border-radius: 10px;
             -webkit-backdrop-filter: blur(10px);
@@ -231,53 +232,57 @@
                 </div>
             </div>
             <!-- Footer dipindahkan ke bawah, di luar div terpusat -->
-            <footer class="text-center py-4 text-sm opacity-60">
-                © Coppyright KPU 2026 PRESMA Politeknik LP3I Bandung. Dikembangkan oleh Samba Hadidaya
+            <footer class="text-center py-4 text-sm opacity-60 font-bold">
+                © Coppyright KPU 2025. Dikembangkan oleh Samba Hadidaya
             </footer>
         </div>
 
     </div>
 
     <!-- Dashboard Container -->
-    <div id="dashboardContainer" class="hidden min-h-screen flex">
-        <!-- Sidebar -->
-        <aside class="w-48 bg-[#255267] text-white p-6 shadow-lg">
-            <div class="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden">
-                <img src="foto.jpeg" class="borrder w-full h-full rounded-full mx-auto mb-4 object-cover" alt="Admin">
+    <div id="dashboardContainer" class="hidden min-h-screen">
+        <!-- Sidebar sekarang fixed, di luar flex -->
+        <aside class="fixed top-0 left-0 w-48 bg-[#255267] text-white p-6 shadow-lg h-screen flex flex-col z-10">
+            <div class="flex-grow">
+                <!-- Konten atas sidebar tetap di sini -->
+                <div class="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden">
+                    <img src="foto.jpeg" class="borrder w-full h-full rounded-full mx-auto mb-4 object-cover"
+                        alt="Admin">
+                </div>
+                <h2 class="text-sm font-bold mb-8 text-center">Admin Dashboard</h2>
+                <nav class="space-y-4">
+                    <button id="navDashboard"
+                        class="nav-btn w-full text-left py-2 px-4 rounded-lg hover:bg-[#F2F8F6] hover:text-[#1C3D4D] transition-all duration-300">Dashboard</button>
+                    <button id="navKandidat"
+                        class="nav-btn w-full text-left py-2 px-4 rounded-lg hover:bg-[#F2F8F6] hover:text-[#1C3D4D] transition-all duration-300">Data
+                        Kandidat</button>
+                    <button id="navMahasiswa"
+                        class="nav-btn w-full text-left py-2 px-4 rounded-lg hover:bg-[#F2F8F6] hover:text-[#1C3D4D] transition-all duration-300">Data
+                        Pemilih</button>
+                    <button id="navVoting"
+                        class="nav-btn w-full text-left py-2 px-4 rounded-lg hover:bg-[#F2F8F6] hover:text-[#1C3D4D] transition-all duration-300">Data
+                        Voting</button>
+                    <button id="navAdmin"
+                        class="nav-btn w-full text-left py-2 px-4 rounded-lg hover:bg-[#F2F8F6] hover:text-[#1C3D4D] transition-all duration-300">Data
+                        Admin</button>
+                </nav>
             </div>
-            <h2 class="text-sm font-bold mb-8 text-center">Admin Dashboard</h2>
-            <nav class="space-y-4">
-                <button id="navDashboard"
-                    class="nav-btn w-full text-left py-2 px-4 rounded-lg hover:bg-[#F2F8F6] hover:text-[#1C3D4D] transition-all duration-300">Dashboard</button>
-                <button id="navKandidat"
-                    class="nav-btn w-full text-left py-2 px-4 rounded-lg hover:bg-[#F2F8F6] hover:text-[#1C3D4D] transition-all duration-300">Data
-                    Kandidat</button>
-                <button id="navMahasiswa"
-                    class="nav-btn w-full text-left py-2 px-4 rounded-lg hover:bg-[#F2F8F6] hover:text-[#1C3D4D] transition-all duration-300">Data
-                    Pemilih</button>
-                <button id="navVoting"
-                    class="nav-btn w-full text-left py-2 px-4 rounded-lg hover:bg-[#F2F8F6] hover:text-[#1C3D4D] transition-all duration-300">Data
-                    Voting</button>
-                <button id="navAdmin"
-                    class="nav-btn w-full text-left py-2 px-4 rounded-lg hover:bg-[#F2F8F6] hover:text-[#1C3D4D] transition-all duration-300">Data
-                    Admin</button>
-            </nav>
-            <div class="rounded-xl overflow-hidden flex items-center justify-center ml-4 mr-4">
-                <button id="logoutBtn"
-                    class="flex w-full mt-8 borrder-tombol1 py-2 rounded-lg transition-all duration-300"><i
-                        class="mr-2 ml-2" data-feather="log-out"></i>Logout</button>
+            <!-- Konten bawah sidebar (logout dan indikator) tetap di bawah -->
+            <div class="mt-auto">
+                <div class="rounded-xl overflow-hidden flex items-center justify-center ml-4 mr-4">
+                    <button id="logoutBtn"
+                        class="flex w-full mt-8 borrder-tombol1 py-2 rounded-lg transition-all duration-300"><i
+                            class="mr-2 ml-2" data-feather="log-out"></i>Logout</button>
+                </div>
+                <!-- Indikator Jaringan (Tambahan Baru) -->
+                <div class="mt-4 flex rounded-xl p-2 items-center justify-center bg-[#F2F8F6]">
+                    <i id="networkIndicator" data-feather="wifi" class="w-6 h-6" style="color: green;"></i>
+                    <span class="ml-2 text-sm text-[#1C3D4D] font-bold">Jaringan</span>
+                </div>
             </div>
-
-            <!-- Indikator Jaringan (Tambahan Baru) -->
-            <div class="mt-4 flex rounded-xl p-2 items-center justify-center bg-[#F2F8F6] ">
-                <i id="networkIndicator" data-feather="wifi" class="w-6 h-6" style="color: green;"></i>
-                <span class="ml-2 text-sm text-[#1C3D4D] font-bold">Jaringan</span>
-            </div>
-
         </aside>
-
         <!-- Main Content -->
-        <main class="flex-1 p-4 bg-[#F2F8F6] ">
+        <main class="flex-1 ml-48 p-4 bg-[#F2F8F6] ">
             <!-- Dashboard Page -->
             <div id="dashboardPage" class="page">
                 <div class="flex justify-between items-center bg-[#C9E1EB] rounded-xl gap-4 p-4 mb-4">
@@ -432,8 +437,8 @@
                     </div>
                 </div>
 
-                <footer class="text-[#1C3D4D] text-center font-semibold mt-auto py-4 text-sm opacity-60">
-                    © Coppyright KPU 2026 PRESMA Politeknik LP3I Bandung. Dikembangkan oleh Samba Hadidaya
+                <footer class="text-[#1C3D4D] text-center font-bold mt-auto py-4 text-sm opacity-60">
+                    © Coppyright KPU 2025. Dikembangkan oleh Samba Hadidaya
                 </footer>
             </div>
 
@@ -479,8 +484,8 @@
                     </button>
                 </form>
                 <div id="kandidatList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6"></div>
-                <footer class="text-[#1C3D4D] text-center font-semibold mt-auto py-4 text-sm opacity-60">
-                    © Coppyright KPU 2026 PRESMA Politeknik LP3I Bandung. Dikembangkan oleh Samba Hadidaya
+                <footer class="text-[#1C3D4D] text-center font-bold mt-auto py-4 text-sm opacity-60">
+                    © Coppyright KPU 2025. Dikembangkan oleh Samba Hadidaya
                 </footer>
             </div>
 
@@ -652,8 +657,8 @@
                         <tbody class="warna-kolom2 borrder-1 rounded-xl " id="mahasiswaList"></tbody>
                     </table>
                 </div>
-                <footer class="text-[#1C3D4D] text-center font-semibold mt-auto py-4 text-sm opacity-60">
-                    © Coppyright KPU 2026 PRESMA Politeknik LP3I Bandung. Dikembangkan oleh Samba Hadidaya
+                <footer class="text-[#1C3D4D] text-center font-bold mt-auto py-4 text-sm opacity-60">
+                    © Coppyright KPU 2025. Dikembangkan oleh Samba Hadidaya
                 </footer>
             </div>
 
@@ -674,7 +679,6 @@
                         </button>
                     </div>
                 </div>
-
 
                 <div class="items-center mb-4 bg-[#C9E1EB] rounded-xl p-2">
                     <div class="w-full max-h-md items-center mt-4 mb-4">
@@ -747,8 +751,8 @@
                         <tbody class="warna-kolom2 borrder-1 rounded-xl " id="votingList"></tbody>
                     </table>
                 </div>
-                <footer class="text-[#1C3D4D] text-center font-semibold mt-auto py-4 text-sm opacity-60">
-                    © Coppyright KPU 2026 PRESMA Politeknik LP3I Bandung. Dikembangkan oleh Samba Hadidaya
+                <footer class="text-[#1C3D4D] text-center font-bold mt-auto py-4 text-sm opacity-60">
+                    © Coppyright KPU 2025. Dikembangkan oleh Samba Hadidaya
                 </footer>
             </div>
 
@@ -760,11 +764,11 @@
                     </div>
                     <div class="flex gap-2">
                         <button id="risetAkunAdmin"
-                            class="borrder-tombol whitespace-nowrap py-2 px-4 rounded-lg transition-all duration-300">
+                            class="hidden borrder-tombol whitespace-nowrap py-2 px-4 rounded-lg transition-all duration-300">
                             <span class="spinner hidden"></span>Riset Akun Admin
                         </button>
                         <button id="risetAdmin"
-                            class="borrder-tombol whitespace-nowrap py-2 px-4 rounded-lg transition-all duration-300">
+                            class="hidden borrder-tombol whitespace-nowrap py-2 px-4 rounded-lg transition-all duration-300">
                             <span class="spinner hidden"></span>Riset Device Admin
                         </button>
                         <button id="refreshAdmin"
@@ -773,7 +777,7 @@
                         </button>
                     </div>
                 </div>
-                <form id="AdminForm" class="warna-kolom1 rounded-xl shadow p-6 mb-3">
+                <form id="AdminForm" class="warna-kolom1 rounded-xl shadow p-6 mb-3 hidden">
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                         <input type="text" id="AdminFromId" placeholder="ID (kosongkan saja)" required
                             class="px-4 py-2 borrder-tombol rounded-lg warna-kolom2">
@@ -809,18 +813,31 @@
                         <thead class="warna-kolom1 rounded-xl borrder-1">
                             <tr class="">
                                 <th class="p-4">nama</th>
-                                <th class="p-4">password</th>
-                                <th class="p-4">device</th>
+                                <th class="p-4 hidden">password</th>
+                                <th class="p-4 hidden">device</th>
                                 <th class="p-4">waktu login</th>
                                 <th class="p-4">Status</th> <!-- Kolom Status Baru -->
-                                <th class="p-4">Aksi</th>
+                                <th class="p-4 hidden">Aksi</th>
                             </tr>
                         </thead>
                         <tbody class="warna-kolom2 borrder-1 rounded-xl" id="AdminList"></tbody>
                     </table>
                 </div>
-                <footer class="text-[#1C3D4D] text-center font-semibold mt-auto py-4 text-sm opacity-60">
-                    © Coppyright KPU 2026 PRESMA Politeknik LP3I Bandung. Dikembangkan oleh Samba Hadidaya
+                <!-- Tambahkan setelah tabel admin yang ada -->
+                <div class="w-full bg-[#C9E1EB] rounded-xl mt-6">
+                    <table class="w-full">
+                        <thead class="warna-kolom1 rounded-xl borrder-1">
+                            <tr class="">
+                                <th class="p-4">Admin</th>
+                                <th class="p-4">Aktivitas</th>
+                                <th class="p-4">Waktu</th>
+                            </tr>
+                        </thead>
+                        <tbody class="warna-kolom2 borrder-1 rounded-xl" id="adminLogsList"></tbody>
+                    </table>
+                </div>
+                <footer class="text-[#1C3D4D] text-center font-bold mt-auto py-4 text-sm opacity-60">
+                    © Coppyright KPU 2025. Dikembangkan oleh Samba Hadidaya
                 </footer>
             </div>
         </main>
