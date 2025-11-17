@@ -242,28 +242,39 @@
     <div id="dashboardContainer" class="hidden min-h-screen flex">
         <!-- Sidebar -->
         <aside class="w-48 bg-[#255267] text-white p-6 shadow-lg">
-    <div class="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden">
-        <img src="foto.jpeg" class="borrder w-full h-full rounded-full mx-auto mb-4 object-cover" alt="Admin">
-    </div>
-    <h2 class="text-sm font-bold mb-8 text-center">Admin Dashboard</h2>
-    <nav class="space-y-4">
-        <button id="navDashboard" class="nav-btn w-full text-left py-2 px-4 rounded-lg hover:bg-[#F2F8F6] hover:text-[#1C3D4D] transition-all duration-300">Dashboard</button>
-        <button id="navKandidat" class="nav-btn w-full text-left py-2 px-4 rounded-lg hover:bg-[#F2F8F6] hover:text-[#1C3D4D] transition-all duration-300">Data Kandidat</button>
-        <button id="navMahasiswa" class="nav-btn w-full text-left py-2 px-4 rounded-lg hover:bg-[#F2F8F6] hover:text-[#1C3D4D] transition-all duration-300">Data Pemilih</button>
-        <button id="navVoting" class="nav-btn w-full text-left py-2 px-4 rounded-lg hover:bg-[#F2F8F6] hover:text-[#1C3D4D] transition-all duration-300">Data Voting</button>
-        <button id="navAdmin" class="nav-btn w-full text-left py-2 px-4 rounded-lg hover:bg-[#F2F8F6] hover:text-[#1C3D4D] transition-all duration-300 hidden">Data Admin</button>
-    </nav>
-    <div class="rounded-xl overflow-hidden flex items-center justify-center ml-4 mr-4">
-        <button id="logoutBtn" class="flex w-full mt-8 borrder-tombol1 py-2 rounded-lg transition-all duration-300"><i class="mr-2 ml-2" data-feather="log-out"></i>Logout</button>
-    </div>
+            <div class="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden">
+                <img src="foto.jpeg" class="borrder w-full h-full rounded-full mx-auto mb-4 object-cover" alt="Admin">
+            </div>
+            <h2 class="text-sm font-bold mb-8 text-center">Admin Dashboard</h2>
+            <nav class="space-y-4">
+                <button id="navDashboard"
+                    class="nav-btn w-full text-left py-2 px-4 rounded-lg hover:bg-[#F2F8F6] hover:text-[#1C3D4D] transition-all duration-300">Dashboard</button>
+                <button id="navKandidat"
+                    class="nav-btn w-full text-left py-2 px-4 rounded-lg hover:bg-[#F2F8F6] hover:text-[#1C3D4D] transition-all duration-300">Data
+                    Kandidat</button>
+                <button id="navMahasiswa"
+                    class="nav-btn w-full text-left py-2 px-4 rounded-lg hover:bg-[#F2F8F6] hover:text-[#1C3D4D] transition-all duration-300">Data
+                    Pemilih</button>
+                <button id="navVoting"
+                    class="nav-btn w-full text-left py-2 px-4 rounded-lg hover:bg-[#F2F8F6] hover:text-[#1C3D4D] transition-all duration-300">Data
+                    Voting</button>
+                <button id="navAdmin"
+                    class="nav-btn w-full text-left py-2 px-4 rounded-lg hover:bg-[#F2F8F6] hover:text-[#1C3D4D] transition-all duration-300">Data
+                    Admin</button>
+            </nav>
+            <div class="rounded-xl overflow-hidden flex items-center justify-center ml-4 mr-4">
+                <button id="logoutBtn"
+                    class="flex w-full mt-8 borrder-tombol1 py-2 rounded-lg transition-all duration-300"><i
+                        class="mr-2 ml-2" data-feather="log-out"></i>Logout</button>
+            </div>
 
-    <!-- Indikator Jaringan (Tambahan Baru) -->
-    <div class="mt-4 flex rounded-xl p-2 items-center justify-center bg-[#F2F8F6] ">
-        <i id="networkIndicator" data-feather="wifi" class="w-6 h-6" style="color: green;"></i>
-        <span class="ml-2 text-sm text-[#1C3D4D] font-bold">Jaringan</span>
-    </div>
-    
-</aside>
+            <!-- Indikator Jaringan (Tambahan Baru) -->
+            <div class="mt-4 flex rounded-xl p-2 items-center justify-center bg-[#F2F8F6] ">
+                <i id="networkIndicator" data-feather="wifi" class="w-6 h-6" style="color: green;"></i>
+                <span class="ml-2 text-sm text-[#1C3D4D] font-bold">Jaringan</span>
+            </div>
+
+        </aside>
 
         <!-- Main Content -->
         <main class="flex-1 p-4 bg-[#F2F8F6] ">
@@ -785,12 +796,12 @@
 
                 <div class="w-auto gap-6 mb-6 bg-[#C9E1EB] rounded-xl p-4 items-center mr-4">
                     <h1 class="warna-teks text-2xl font-bold mb-4">Data Admin Login</h1>
-                        <!-- ... existing code ... -->
-                        <div id="adminDeviceContainer"
-                            class="w-auto gap-6 mb-6 bg-[#C9E1EB] rounded-xl p-4 items-center mr-4">
-                            <!-- Konten akan diisi secara dinamis oleh JS -->
-                        </div>
-                        <!-- ... existing code ... -->
+                    <!-- ... existing code ... -->
+                    <div id="adminDeviceContainer"
+                        class="w-auto gap-6 mb-6 bg-[#C9E1EB] rounded-xl p-4 items-center mr-4">
+                        <!-- Konten akan diisi secara dinamis oleh JS -->
+                    </div>
+                    <!-- ... existing code ... -->
                 </div>
 
                 <div class="w-full bg-[#C9E1EB] rounded-xl">
@@ -801,6 +812,7 @@
                                 <th class="p-4">password</th>
                                 <th class="p-4">device</th>
                                 <th class="p-4">waktu login</th>
+                                <th class="p-4">Status</th> <!-- Kolom Status Baru -->
                                 <th class="p-4">Aksi</th>
                             </tr>
                         </thead>
