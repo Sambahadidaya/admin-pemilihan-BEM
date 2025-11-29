@@ -366,6 +366,7 @@
                     <h1 class="font-bold text-2xl text-[#1C3D4D] mb-4">Dashboard Yang Sudah Voting</h1>
                 </div>
 
+                <!-- Grafik Hasil Voting -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div class="warna-kolom1 rounded-2xl card-shadow p-8 animate-fade-in mb-6">
                         <div class="mb-8">
@@ -377,12 +378,28 @@
                         <div class="flex-1">
                             <canvas id="votingChart" class="w-64 h-64"></canvas>
                         </div>
-
                     </div>
                     <div class="warna-kolom1 rounded-2xl card-shadow p-8 animate-fade-in mb-6">
                         <div class="mb-8">
                             <div class="flex justify-between items-center mb-4">
-                                <h2 class="text-2xl font-bold">Statistik Prodi Voting</h2>
+                                <h2 class="text-2xl font-bold">Perolehan Suara Kandidat</h2>
+                            </div>
+                        </div>
+                        <div class="space-y-6">
+                            <div id="resultsContainer">
+                                <!-- Akan diisi dinamis -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Statistik Prodi Voting -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <!-- REG -->
+                    <div class="warna-kolom1 rounded-2xl card-shadow p-8 animate-fade-in mb-6">
+                        <div class="mb-8">
+                            <div class="flex justify-between items-center mb-4">
+                                <h2 class="text-2xl font-bold">Statistik Prodi Voting (REG+Dosen)</h2>
                             </div>
                         </div>
                         <!-- Tambahkan div untuk diagram lingkaran di bawah judul -->
@@ -390,31 +407,44 @@
                             <canvas id="prodiChart" class="w-64 h-64"></canvas>
                         </div>
                     </div>
-
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <!-- NONREG -->
                     <div class="warna-kolom1 rounded-2xl card-shadow p-8 animate-fade-in mb-6">
                         <div class="mb-8">
                             <div class="flex justify-between items-center mb-4">
-                                <h2 class="text-2xl font-bold">Perolehan Suara Kandidat</h2>
+                                <h2 class="text-2xl font-bold">Statistik Prodi Voting (NONREG)</h2>
                             </div>
                         </div>
+                        <!-- Tambahkan div untuk diagram lingkaran di bawah judul -->
+                        <div class="flex-1">
+                            <canvas id="prodiChartNonREG" class="w-64 h-64"></canvas>
+                        </div>
+                    </div>
+                </div>
 
+                <!-- Statistik Angkatan Voting -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <!-- REG -->
+                    <div class="warna-kolom1 rounded-2xl card-shadow p-8 animate-fade-in mb-6">
+                        <div class="mb-8">
+                            <div class="flex justify-between items-center mb-4">
+                                <h2 class="text-2xl font-bold mb-4">Statistik Angkatan Voting (REG+Dosen)</h2>
+                            </div>
+                        </div>
                         <div class="space-y-6">
-                            <div id="resultsContainer">
+                            <div id="resultsContainerAngkatan">
                                 <!-- Akan diisi dinamis -->
                             </div>
                         </div>
                     </div>
+                    <!-- NONREG -->
                     <div class="warna-kolom1 rounded-2xl card-shadow p-8 animate-fade-in mb-6">
                         <div class="mb-8">
                             <div class="flex justify-between items-center mb-4">
-                                <h2 class="text-2xl font-bold mb-4">Statistik Angkatan Voting</h2>
+                                <h2 class="text-2xl font-bold mb-4">Statistik Angkatan Voting (NONREG)</h2>
                             </div>
                         </div>
-
                         <div class="space-y-6">
-                            <div id="resultsContainerAngkatan">
+                            <div id="resultsContainerAngkatanNonREG">
                                 <!-- Akan diisi dinamis -->
                             </div>
                         </div>
@@ -423,16 +453,55 @@
                 <div>
                     <h1 class="font-bold text-2xl text-[#1C3D4D] mb-4">Dashboard Yang Belum Voting</h1>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-1 gap-6 mb-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div class="warna-kolom1 rounded-xl shadow p-6 flex flex-col">
                         <div class="mb-8">
                             <div class="flex justify-between items-center mb-4">
-                                <h2 class="text-2xl font-bold">Statistik Prodi Belum Voting</h2>
+                                <h2 class="text-2xl font-bold">Statistik Prodi Belum Voting (REG+Dosen)</h2>
                             </div>
                         </div>
                         <!-- Tambahkan div untuk diagram batang bertumpuk di bawah judul -->
                         <div class="flex-1">
                             <canvas id="belumvoteProdi" class="w-64 h-64"></canvas>
+                        </div>
+                    </div>
+                    <div class="warna-kolom1 rounded-xl shadow p-6 flex flex-col">
+                        <div class="mb-8">
+                            <div class="flex justify-between items-center mb-4">
+                                <h2 class="text-2xl font-bold">Statistik Prodi Belum Voting (NonREG)</h2>
+                            </div>
+                        </div>
+                        <!-- Tambahkan div untuk diagram batang bertumpuk di bawah judul -->
+                        <div class="flex-1">
+                            <canvas id="belumvoteProdiNonREG" class="w-64 h-64"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-1 gap-6 mb-6">
+                    <!-- Tambahkan ini setelah grafik terakhir di dashboardPage -->
+                    <div class="w-full bg-[#C9E1EB] rounded-xl p-4 mt-6">
+                        <h1 class="warna-teks text-2xl font-bold mb-4">Grafik Total Pengunjung</h1>
+                        <div class="flex justify-center items-center mb-4"> 
+                            <button id="toggleModeBtn"
+                                class="borrder-tombol py-2 px-4 rounded-lg transition-all duration-300">Lihat Per
+                                Minggu
+                            </button>
+                        </div>
+                        <div class="flex justify-between items-center mb-4">
+                            <button id="prevDayBtn"
+                                class="borrder-tombol py-2 px-4 rounded-lg transition-all duration-300">← Hari
+                                Sebelumnya</button><p>
+                            <span id="currentDayLabel" class="text-lg font-bold text-[#1C3D4D]">Hari: Memuat...</span><br>
+                            <span id="totalVisitorsToday" class="text-lg font-semibold text-[#1C3D4D] mb-4">Jumlah
+                                pengunjung
+                                hari ini: 0</span>
+                        </p>
+                            <button id="nextDayBtn"
+                                class="borrder-tombol py-2 px-4 rounded-lg transition-all duration-300">Hari Berikutnya
+                                →</button>
+                        </div>
+                        <div class="flex-1">
+                            <canvas id="visitorChart" class="w-full h-64"></canvas>
                         </div>
                     </div>
                 </div>
@@ -465,8 +534,8 @@
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                         <input type="text" id="kandidatNo" placeholder="Nomber Kandidat" required
                             class="px-4 py-2 borrder-tombol rounded-lg warna-kolom2">
-                        <input type="text" id="kandidatNama" placeholder="Nama" required
-                            class="px-4 py-2 borrder-tombol rounded-lg warna-kolom2">
+                        <textarea id="kandidatNama" placeholder="Nama" required
+                            class="px-4 py-2 borrder-tombol rounded-lg warna-kolom2"></textarea>
                         <input aria-label="file" type="file" id="kandidatFoto" accept="image/*"
                             class="px-4 py-2 borrder-tombol rounded-lg warna-kolom2">
                     </div>
@@ -742,9 +811,10 @@
                                 <th class="p-4">Nama</th>
                                 <th class="p-4">NIM</th>
                                 <th class="p-4">Calon</th>
-                                <th class="p-4">Waktu Vote</th>
+                                <th class="p-4">Waktu Vote (+7 jam dari WIB)</th>
                                 <th class="p-4">Angkatan</th>
                                 <th class="p-4">Prodi</th>
+                                <th class="p-4">Kelas</th>
                                 <th class="p-4">Aksi</th>
                             </tr>
                         </thead>
@@ -764,11 +834,11 @@
                     </div>
                     <div class="flex gap-2">
                         <button id="risetAkunAdmin"
-                            class="hidden borrder-tombol whitespace-nowrap py-2 px-4 rounded-lg transition-all duration-300">
+                            class="borrder-tombol whitespace-nowrap py-2 px-4 rounded-lg transition-all duration-300">
                             <span class="spinner hidden"></span>Riset Akun Admin
                         </button>
                         <button id="risetAdmin"
-                            class="hidden borrder-tombol whitespace-nowrap py-2 px-4 rounded-lg transition-all duration-300">
+                            class="borrder-tombol whitespace-nowrap py-2 px-4 rounded-lg transition-all duration-300">
                             <span class="spinner hidden"></span>Riset Device Admin
                         </button>
                         <button id="refreshAdmin"
@@ -777,7 +847,7 @@
                         </button>
                     </div>
                 </div>
-                <form id="AdminForm" class="warna-kolom1 rounded-xl shadow p-6 mb-3 hidden">
+                <form id="AdminForm" class="warna-kolom1 rounded-xl shadow p-6 mb-3">
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                         <input type="text" id="AdminFromId" placeholder="ID (kosongkan saja)" required
                             class="px-4 py-2 borrder-tombol rounded-lg warna-kolom2">
@@ -813,11 +883,11 @@
                         <thead class="warna-kolom1 rounded-xl borrder-1">
                             <tr class="">
                                 <th class="p-4">nama</th>
-                                <th class="p-4 hidden">password</th>
+                                <th class="p-4">password</th>
                                 <th class="p-4 hidden">device</th>
                                 <th class="p-4">waktu login (+7 jam dari WIB)</th>
                                 <th class="p-4">Status</th> <!-- Kolom Status Baru -->
-                                <th class="p-4 hidden">Aksi</th>
+                                <th class="p-4">Aksi</th>
                             </tr>
                         </thead>
                         <tbody class="warna-kolom2 borrder-1 rounded-xl" id="AdminList"></tbody>
@@ -851,4 +921,3 @@
 </body>
 
 </html>
-
