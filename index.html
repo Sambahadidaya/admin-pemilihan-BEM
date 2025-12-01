@@ -296,58 +296,56 @@
                         </button>
                     </div>
                 </div>
+                <!-- index.html -->
+                <!-- ... existing code ... -->
                 <div class="w-auto gap-6 mb-6 bg-[#C9E1EB] rounded-xl p-4">
                     <h1 class="warna-teks text-2xl font-bold mb-4">Data Pemilihan KPU 2025</h1>
                     <div class="items-center w-auto flex gap-6 mb-2">
                         <div
                             class="borrder border-bayangan w-full h-full bg-[#F2F8F6] rounded-xl text-[#1C3D4D] py-4 flex items-center">
-                            <!-- Tambahkan flex items-center -->
                             <div
                                 class="bg-[#C9E1EB] text-[#1C3D4D] rounded-xl overflow-hidden flex items-center justify-center ml-4 mr-4">
-                                <!-- Hapus mx-auto, tambahkan ml-2 mr-4 -->
                                 <i class="p-2 w-10 h-10" data-feather="layers"></i>
                             </div>
-                            <div class="ml-4 text-center"> <!-- Bungkus text di sini -->
-                                <h1 class="text-[#1C3D4D] text-4xl font-bold"><span id="totalVoters">0</span></h1>
+                            <div class="ml-4 text-center">
+                                <h1 class="flex text-[#1C3D4D] text-4xl font-bold items-center"><span id="totalVoters">0</span> <span
+                                        id="percentageVoters" class="text-lg font-bold ml-2">100%</span></h1>
                                 <h1 class="text-[#1C3D4D] text-base font-bold">Total Data Pemilih</h1>
                             </div>
                         </div>
                         <div
                             class="borrder border-bayangan w-full h-full warna-kolom2 rounded-xl py-4 flex items-center">
-                            <!-- Tambahkan flex items-center -->
                             <div
                                 class="bg-[#C9E1EB] rounded-xl overflow-hidden flex items-center justify-center ml-4 mr-4">
-                                <!-- Hapus mx-auto, tambahkan ml-4 mr-4 -->
                                 <i class="p-2 w-10 h-10" data-feather="activity"></i>
                             </div>
-                            <div class="ml-4 text-center"> <!-- Bungkus teks di sini -->
-                                <h2 class="text-4xl font-bold"><span id="totalVotes">0</span></h2>
+                            <div class="ml-4 text-center">
+                                <h2 class="flex text-4xl font-bold items-center"><span id="totalVotes">0</span> <span
+                                        id="percentageVotes" class="text-lg font-bold ml-2">0%</span></h2>
                                 <h1 class="text-base font-bold">Total Sudah Voting</h1>
                             </div>
                         </div>
                         <div
                             class="borrder border-bayangan w-full h-full warna-kolom2 rounded-xl py-4 flex items-center">
-                            <!-- Tambahkan flex items-center -->
                             <div
                                 class="bg-[#C9E1EB] rounded-xl overflow-hidden flex items-center justify-center ml-4 mr-4">
-                                <!-- Hapus mx-auto, tambahkan mr-4 -->
                                 <i class="p-2 w-10 h-10" data-feather="slash"></i>
                             </div>
-                            <div class="ml-4 text-center"> <!-- Bungkus teks di sini -->
-                                <h1 class="text-4xl font-bold"><span id="totalBelumVoting">0</span></h1>
+                            <div class="ml-4 text-center">
+                                <h1 class="flex text-4xl font-bold items-center"><span id="totalBelumVoting">0</span> <span
+                                        id="percentageBelumVoting" class="text-lg font-bold ml-2">0%</span></h1>
                                 <h1 class="text-base font-bold">Total Belum Voting</h1>
                             </div>
                         </div>
                         <div
                             class="borrder border-bayangan w-full h-full warna-kolom2 rounded-xl py-4 flex items-center">
-                            <!-- Tambahkan flex items-center -->
                             <div
                                 class="bg-[#C9E1EB] rounded-xl overflow-hidden flex items-center justify-center ml-4 mr-4">
-                                <!-- Hapus mx-auto, tambahkan mr-4 -->
                                 <i class="p-2 w-10 h-10" data-feather="trending-up"></i>
                             </div>
-                            <div class="ml-4 text-center"> <!-- Bungkus teks di sini -->
-                                <h1 class="text-4xl font-bold"><span id="totalPengunjung">0</span></h1>
+                            <div class="ml-4 text-center">
+                                <h1 class="flex text-4xl font-bold"><span id="totalPengunjung">0</span> <span
+                                        id="percentagePengunjung" class="text-lg font-bold ml-2">(100%)</span></h1>
                                 <h1 class="text-base font-bold">Total Pengunjung</h1>
                             </div>
                         </div>
@@ -481,7 +479,7 @@
                     <!-- Tambahkan ini setelah grafik terakhir di dashboardPage -->
                     <div class="w-full bg-[#C9E1EB] rounded-xl p-4 mt-6">
                         <h1 class="warna-teks text-2xl font-bold mb-4">Grafik Total Pengunjung</h1>
-                        <div class="flex justify-center items-center mb-4"> 
+                        <div class="flex justify-center items-center mb-4">
                             <button id="toggleModeBtn"
                                 class="borrder-tombol py-2 px-4 rounded-lg transition-all duration-300">Lihat Per
                                 Minggu
@@ -490,12 +488,14 @@
                         <div class="flex justify-between items-center mb-4">
                             <button id="prevDayBtn"
                                 class="borrder-tombol py-2 px-4 rounded-lg transition-all duration-300">← Hari
-                                Sebelumnya</button><p>
-                            <span id="currentDayLabel" class="text-lg font-bold text-[#1C3D4D]">Hari: Memuat...</span><br>
-                            <span id="totalVisitorsToday" class="text-lg font-semibold text-[#1C3D4D] mb-4">Jumlah
-                                pengunjung
-                                hari ini: 0</span>
-                        </p>
+                                Sebelumnya</button>
+                            <p>
+                                <span id="currentDayLabel" class="text-lg font-bold text-[#1C3D4D]">Hari:
+                                    Memuat...</span><br>
+                                <span id="totalVisitorsToday" class="text-lg font-semibold text-[#1C3D4D] mb-4">Jumlah
+                                    pengunjung
+                                    hari ini: 0</span>
+                            </p>
                             <button id="nextDayBtn"
                                 class="borrder-tombol py-2 px-4 rounded-lg transition-all duration-300">Hari Berikutnya
                                 →</button>
